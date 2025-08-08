@@ -28,6 +28,7 @@ header {
 main {
   flex: 1;
   padding: 20px;
+  display: flex;
 }
 footer {
   background: #002366; /* bleu foncé */
@@ -47,7 +48,6 @@ footer {
   border-radius: 4px;
 }
 .left-column {
-  float: left;
   width: 25%;
   background: #d4edda; /* vert clair */
   padding: 10px;
@@ -92,10 +92,20 @@ footer {
 }
 
 .right-column {
-  margin-left: 26%;  /* espace pour la colonne gauche */
+  width: 75%;
   padding: 10px;
   box-sizing: border-box;
 }
+
+.product-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
 .product-item img {
   border-radius: 6px;
   margin-right: 10px; /* espace entre l'image et la description */
