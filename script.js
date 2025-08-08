@@ -1,4 +1,3 @@
-// Exemple de produits (tu peux adapter avec tes vrais produits)
 const products = {
   vetements: [
     { name: "T-shirt coton", price: 15000, image: "images/tshirt-coton.jpg" }
@@ -8,12 +7,10 @@ const products = {
   ]
 };
 
-// Fonction pour afficher la liste des catégories à gauche
 function showCategories() {
   const categoryList = document.getElementById('category-list');
-  categoryList.innerHTML = ""; // vide la liste avant
+  categoryList.innerHTML = ""; // vide avant
   
-  // Pour chaque catégorie dans products
   for (const category in products) {
     const li = document.createElement('li');
     const btn = document.createElement('button');
@@ -26,7 +23,6 @@ function showCategories() {
   }
 }
 
-// Fonction pour afficher les produits à droite selon catégorie sélectionnée
 function showProducts(category) {
   const productList = document.getElementById('product-list');
   productList.innerHTML = `<h2>${capitalize(category)}</h2>`;
@@ -46,12 +42,16 @@ function showProducts(category) {
   });
 }
 
-// Petite fonction pour mettre la première lettre en majuscule
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-// Au chargement de la page, afficher les catégories par défaut
 document.addEventListener('DOMContentLoaded', () => {
   showCategories();
+
+  // Back to Top button
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 });
