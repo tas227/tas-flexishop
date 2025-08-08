@@ -1,112 +1,62 @@
-// Les produits initialement dans la catégorie "vetements"
+// Liste des produits par catégorie
 const products = {
   vetements: [
-    {
-      name: "T-shirt coton",
-      price: 15000,
-      image: "images/tshirt-coton.jpg",
-      description: "T-shirt confortable en coton bio"
-    }
+    { name: "T-shirt coton", price: 15000, image: "images/tshirt-coton.jpg" }
+  ],
+  accessoires: [
+    { name: "Sac à main", price: 40000, image: "images/sac-a-main.jpg" },
+    { name: "Ceinture en cuir", price: 20000, image: "images/ceinture.jpg" }
   ]
 };
 
-let cart = [];
-
-// Affiche la liste des catégories (pour l'instant juste vetements)
+// Fonction pour afficher la liste des catégories dans la colonne de gauche
 function showCategories() {
-  const content = document.getElementById("content-area");
-  content.innerHTML = `
-    <div class="left-column">
-      <div class="category-header">Catégories</div>
-      <ul id="categories-list">
-        <li><button data-category="vetements">Vêtements</button></li>
-      </ul>
-    </div>
-    <div class="right-column" id="products-area">
-      <h2>Sélectionnez une catégorie</h2>
-    </div>
-  `;
-
-  // Ajoute les événements aux boutons catégories
-  document.querySelectorAll("#categories-list button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      showProducts(btn.dataset.category);
-    });
+  const leftCol = document.querySelector('.left-column ul');
+  if (!leftCol) return console.error("La colonne de gauche (.left-column ul) est introuvable dans le HTML.");
+  leftCol.innerHTML = '';
+  Object.keys(products).forEach(cat => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.textContent = capitalize(cat);
+    btn.onclick = () => showCategory(cat);
+    li.appendChild(btn);
+    leftCol.appendChild(li);
   });
 }
 
-// Affiche les produits d’une catégorie
-function showProducts(category) {
-  const productsArea = document.getElementById("products-area");
-  productsArea.innerHTML = `<h2>${capitalize(category)}</h2>`;
-
-  products[category].forEach((item, index) => {
-    const productDiv = document.createElement("div");
-    productDiv.className = "product-item";
-    productDiv.innerHTML = `
-      <img src="${item.image}" alt="${item.name}" width="150" />
-      <div><strong>${item.name}</strong></div>
-      <div>${item.description}</div>
-      <div>Prix : ${item.price} CFA</div>
-      <label>Quantité:
-        <select data-category="${category}" data-index="${index}">
-          <option value="0">0</option>
-          <option value="1" selected>1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </label>
+// Fonction pour afficher les produits d'une catégorie dans la colonne de droite
+function showCategory(category) {
+  const rightCol = document.querySelector('.right-column');
+  if (!rightCol) return console.error("La colonne de droite (.right-column) est introuvable dans le HTML.");
+  rightCol.innerHTML = `<h2>${capitalize(category)}</h2>`;
+  products[category].forEach(prod => {
+    const div = document.createElement('div');
+    div.className = 'product-item';
+    div.innerHTML = `
+      <img src="${prod.image}" alt="${prod.name}" width="80" />
+      <div>
+        <div><strong>${prod.name}</strong></div>
+        <div>Prix: ${prod.price} CFA</div>
+        <label>Quantité:
+          <select>
+            <option value="0">0</option>
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </label>
+      </div>
     `;
-    productsArea.appendChild(productDiv);
-  });
-
-  // Écoute le changement des quantités
-  productsArea.querySelectorAll("select").forEach(sel => {
-    sel.addEventListener("change", () => {
-      const cat = sel.dataset.category;
-      const idx = parseInt(sel.dataset.index);
-      const qty = parseInt(sel.value);
-      updateCart(cat, idx, qty);
-    });
+    rightCol.appendChild(div);
   });
 }
 
-// Met à jour le panier
-function updateCart(category, index, qty) {
-  const product = products[category][index];
-  const cartIndex = cart.findIndex(item => item.name === product.name);
-
-  if (qty === 0) {
-    // Retirer si qty 0
-    if (cartIndex !== -1) cart.splice(cartIndex, 1);
-  } else {
-    if (cartIndex !== -1) {
-      cart[cartIndex].qty = qty;
-    } else {
-      cart.push({ name: product.name, price: product.price, qty });
-    }
-  }
-  updateCartCount();
+// Fonction utilitaire pour mettre la première lettre en majuscule
+function capitalize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-// Met à jour le compteur panier dans le header
-function updateCartCount() {
-  const count = cart.reduce((sum, item) => sum + item.qty, 0);
-  document.getElementById("cart-btn").innerText = `Panier (${count})`;
-}
-
-// Simple capitalisation pour les titres
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-// Initialisation au chargement
-document.addEventListener("DOMContentLoaded", () => {
+// Au chargement complet de la page, on affiche la liste des catégories
+document.addEventListener('DOMContentLoaded', () => {
   showCategories();
-  updateCartCount();
-
-  // Ajout gestion clic sur panier (pour l'instant simple alert)
-  document.getElementById("cart-btn").addEventListener("click", () => {
-    alert("Fonction panier à venir...");
-  });
 });
