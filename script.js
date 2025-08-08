@@ -4,6 +4,12 @@ const products = {
   ],
   accessoires: [
     { name: "Sac à main", price: 40000, image: "images/sac-a-main.jpg" }
+  ],
+  automotive: [
+    { name: "Parfum voiture", price: 12000, image: "images/parfum-voiture.jpg" }
+  ],
+  gadgets: [
+    { name: "Support téléphone", price: 8000, image: "images/support-telephone.jpg" }
   ]
 };
 
@@ -49,7 +55,6 @@ function capitalize(word) {
 document.addEventListener('DOMContentLoaded', () => {
   showCategories();
 
-  // Back to Top button
   const backToTopBtn = document.getElementById('backToTopBtn');
   backToTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
