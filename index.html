@@ -1,33 +1,64 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TAS-Flexishop</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Boutique</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f5f5; }
+        header { background:#4CAF50; color:white; text-align:center; padding:2rem; }
+        .products { display:flex; flex-wrap:wrap; justify-content:center; padding:2rem; }
+        .product { background:white; margin:1rem; padding:1rem; border-radius:10px; width:250px; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+        .product img { width:100%; border-radius:10px; }
+        .product button { margin:0.5rem; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer; }
+        .orange { background:#ff9800; color:white; }
+        .livraison { background:#2196F3; color:white; }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div id="site-name">TAS-Flexishop</div>
-    <button id="cart-btn">Panier (0)</button>
-  </header>
+<header>
+    <h1>Bienvenue sur Ma Boutique</h1>
+    <p>Choisissez vos produits et payez facilement</p>
+</header>
 
-  <main id="content-area">
-    <div class="left-column">
-      <h3 class="category-header">Catégories</h3>
-      <ul id="category-list"></ul>
+<div class="products">
+
+    <div class="product">
+        <img src="https://via.placeholder.com/250x150?text=Produit+1" alt="Produit 1">
+        <h2>Produit 1</h2>
+        <p>Prix : 10 000 FCFA</p>
+        <button class="orange" onclick="payerOrangeMoney('Produit 1', 10000)">Orange Money</button>
+        <button class="livraison" onclick="payerLivraison('Produit 1')">Livraison</button>
     </div>
-    <div class="right-column" id="product-list">
-      <!-- Produits affichés ici -->
+
+    <div class="product">
+        <img src="https://via.placeholder.com/250x150?text=Produit+2" alt="Produit 2">
+        <h2>Produit 2</h2>
+        <p>Prix : 15 000 FCFA</p>
+        <button class="orange" onclick="payerOrangeMoney('Produit 2', 15000)">Orange Money</button>
+        <button class="livraison" onclick="payerLivraison('Produit 2')">Livraison</button>
     </div>
-  </main>
 
-  <footer>
-    <div>Contact: atoure227@gmail.com</div>
-    <button id="backToTopBtn">Accueil</button>
-  </footer>
+    <div class="product">
+        <img src="https://via.placeholder.com/250x150?text=Produit+3" alt="Produit 3">
+        <h2>Produit 3</h2>
+        <p>Prix : 20 000 FCFA</p>
+        <button class="orange" onclick="payerOrangeMoney('Produit 3', 20000)">Orange Money</button>
+        <button class="livraison" onclick="payerLivraison('Produit 3')">Livraison</button>
+    </div>
 
-  <script src="script.js"></script>
+</div>
+
+<script>
+function payerOrangeMoney(produit, montant) {
+    alert("Vous avez choisi " + produit + ".\nPaiement via Orange Money : " + montant + " FCFA.\nSuivez les instructions pour payer.");
+}
+
+function payerLivraison(produit) {
+    alert("Vous avez choisi " + produit + ".\nNous vous contacterons pour finaliser la livraison.");
+}
+</script>
+
 </body>
 </html>
